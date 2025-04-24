@@ -1,0 +1,108 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+/* App.css (with Tailwind) */
+
+body {
+  background-color: #1A202C; /* Dark Background */
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  color: #E2E8F0;
+  margin-top: 2rem;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  padding: 0.5rem 2rem;
+  background-color: #2D3748;
+  color: #E2E8F0;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab-button.active {
+  background-color: #4A90E2; /* Blue highlight for active tab */
+}
+
+.dork-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.category {
+  background-color: #2D3748;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category h2 {
+  font-size: 1.25rem;
+  color: #E2E8F0;
+}
+
+.category ol {
+  list-style-type: decimal;
+  padding-left: 1rem;
+}
+
+.category li {
+  font-size: 1rem;
+  color: #E2E8F0;
+  margin-bottom: 0.5rem;
+}
+
+.category ol li {
+  padding-left: 1rem;
+}
+
