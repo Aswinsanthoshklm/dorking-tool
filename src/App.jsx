@@ -3,42 +3,67 @@ import React, { useState } from "react";
 const dorkCategories = [
   {
     name: "📸 Cameras",
-    dorks: [
+    google: [
       'intitle:"Live View / - AXIS"',
       'inurl:view/view.shtml',
       'inurl:":8080" intext:"camera"',
     ],
+    shodan: [
+      'product:"Axis" port:80',
+      'title:"Live View" http.html:"camera"',
+      'port:8080 has_screenshot:true',
+    ],
   },
   {
     name: "🔐 Login Pages",
-    dorks: [
+    google: [
       'intitle:"Login Page"',
       'inurl:/admin/login.php',
       'inurl:/userlogin.jsp',
     ],
+    shodan: [
+      'title:"Login"',
+      'http.html:"Admin Login"',
+      'port:443 http.title:"Sign in"',
+    ],
   },
   {
     name: "📁 Sensitive Files",
-    dorks: [
+    google: [
       'intitle:index.of passwd',
       'ext:sql | ext:dbf | ext:mdb',
       'ext:log inurl:"password"',
     ],
+    shodan: [
+      'http.html:"password" port:80',
+      'ftp "Index of /"',
+      'port:21 "login"',
+    ],
   },
   {
     name: "💻 Devices",
-    dorks: [
+    google: [
       'intitle:"webcamXP 5"',
       'intitle:"IP Camera Viewer"',
       'inurl:top.htm inurl:currenttime',
     ],
+    shodan: [
+      'product:"webcamXP"',
+      'title:"IP Camera Viewer"',
+      'http.html:"current time"',
+    ],
   },
   {
     name: "🚨 Errors & Exposures",
-    dorks: [
+    google: [
       '"PHP Parse error" | "PHP Warning" | "PHP Error"',
       'intitle:"Index of /" "parent directory"',
       'intext:"sql syntax near" inurl:index.php?id=',
+    ],
+    shodan: [
+      'http.html:"php error"',
+      'title:"Index of /"',
+      'http.html:"sql syntax error"',
     ],
   },
 ];
@@ -58,6 +83,12 @@ export default function App() {
     window.open(`${base}${encodeURIComponent(query)}`, "_blank");
   };
 
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      handleDorkClick(searchTerm);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-950 text-white p-6 font-sans">
       <div className="max-w-4xl mx-auto">
@@ -65,14 +96,25 @@ export default function App() {
           🕵️‍♂️ Dorking Tool
         </h1>
 
-        {/* Main Search */}
+        {/* Search Input */}
         <input
           type="text"
           placeholder="Search keyword or dork manually"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           className="w-full px-4 py-3 mb-4 rounded bg-gray-800 border border-gray-700"
         />
+
+        {/* Search Button */}
+        <div className="flex justify-center mb-6">
+          <button
+            onClick={handleSearch}
+            className="px-6 py-2 bg-purple-600 rounded hover:bg-purple-700"
+          >
+            Search with {selectedEngine}
+          </button>
+        </div>
 
         {/* Engine Select */}
         <div className="flex gap-4 mb-4 justify-center">
@@ -115,7 +157,10 @@ export default function App() {
                 {category.name}
               </h2>
               <ul className="list-disc list-inside">
-                {category.dorks.map((dork, index) => (
+                {(selectedEngine === "Google"
+                  ? category.google
+                  : category.shodan
+                ).map((dork, index) => (
                   <li
                     key={index}
                     className="mb-1 text-blue-400 hover:underline cursor-pointer"
