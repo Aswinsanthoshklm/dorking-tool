@@ -1,3 +1,23 @@
+# 🕵️‍♂️ Dorking Tool
+
+A modern web tool for Google & Shodan Dorking.
+
+## 🚀 How to Run
+
+1. Clone this repo:
+
+```bash
+git clone https://github.com/Aswinsanthoshklm/dorking-tool.git
+cd dorking-tool
+
+2. Install dependencies:
+npm install
+3. Start the tool:
+npm run dev
+4. Then open your browser at:
+http://localhost:5173
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
